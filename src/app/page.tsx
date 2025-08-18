@@ -5,7 +5,7 @@ export default function Home() {
 
     <main >
       <h1>Welcome to pizza shop</h1>
-      <Button variant='outline'>Button</Button>
+      <Button variant={'link'}>Button</Button>
     </main>
 
   );
