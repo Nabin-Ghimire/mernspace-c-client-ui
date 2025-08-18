@@ -16,9 +16,9 @@ const config: Config = {
           dark: "#3730a3",
         },
       },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"], // override default font
-      },
+      // fontFamily: {
+      //   sans: ["Inter", "sans-serif"], // override default font
+      // },
     },
   },
   plugins: [],
