@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import ToppingCard, { Topping } from './topping-card'
 
@@ -21,7 +22,9 @@ const ToppingList = () => {
     const isAlreadyExists = selectedToppings.some((element) => element.id === topping.id);
     if (isAlreadyExists) {
       setSelectedToppings((prev) => prev.filter((elem) => elem.id !== topping.id))
+      return;
     }
+    setSelectedToppings((prev) => [...prev, topping]);
   }
 
   return <section className='mt-6'>

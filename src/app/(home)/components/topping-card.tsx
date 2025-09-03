@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button'
+import { CircleCheck } from 'lucide-react';
 import Image from 'next/image'
 import React from 'react'
 
@@ -22,11 +23,14 @@ const ToppingCard = ({ topping, selectedToppings, handleCheckBoxCheck }: PropTyp
   return <Button
     onClick={() => handleCheckBoxCheck(topping)}
     variant={'outline'}
-    className={isCurrentSelected ? 'flex flex-col h-42 border-primary' : 'flex flex-col h-42'}
+    className={`flex flex-col h-42 ${isCurrentSelected ? ' relative  border-primary' : ''}`}
   >
     <Image src={topping.image} width={80} height={80} alt={topping.name} />
     <h4>{topping.name}</h4>
     <p>रु. {topping.price}</p>
+    {isCurrentSelected && (
+      <CircleCheck className="absolute top-1 right-1 text-primary" />
+    )}
   </Button>
 }
 
