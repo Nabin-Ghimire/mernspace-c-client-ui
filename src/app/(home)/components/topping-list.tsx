@@ -1,5 +1,5 @@
 import React from 'react'
-import ToppingCard from './topping-card'
+import ToppingCard, { Topping } from './topping-card'
 
 const toppings = [
   {
@@ -14,12 +14,28 @@ const toppings = [
 ]
 
 const ToppingList = () => {
+
+  const [selectedToppings, setSelectedToppings] = React.useState([toppings[0]])
+
+  const handleCheckBoxCheck = (topping: Topping) => {
+    const isAlreadyExists = selectedToppings.some((element) => element.id === topping.id);
+    if (isAlreadyExists) {
+      setSelectedToppings((prev) => prev.filter((elem) => elem.id !== topping.id))
+    }
+  }
+
   return <section className='mt-6'>
     <h3>Extra toppings</h3>
     <div className='grid grid-cols-3 mt-2 gap-4'>
       {
-        toppings.map((topping, id) => {
-          return <ToppingCard topping={topping} key={id} />
+        toppings.map((topping) => {
+          return (<ToppingCard
+            topping={topping}
+            key={topping.id}
+            selectedToppings={selectedToppings}
+            handleCheckBoxCheck={handleCheckBoxCheck}
+          />
+          );
         })
       }
     </div>

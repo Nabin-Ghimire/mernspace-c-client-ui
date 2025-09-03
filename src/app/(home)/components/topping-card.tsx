@@ -3,22 +3,24 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
 
-type Topping = {
-  id: string,
-  name: string,
-  price: number,
-  image: string,
+export type Topping = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
   isAvailable: boolean
 }
-type ToppingCardProps = {
-  topping: Topping
+type PropType = {
+  topping: Topping;
+  selectedToppings: Topping[];
+  handleCheckBoxCheck: (topping: Topping) => void
+
 }
 
-const ToppingCard = ({ topping }: ToppingCardProps) => {
-  const [selected, setSelected] = React.useState('1')
-  const isCurrentSelected = selected == topping.id
+const ToppingCard = ({ topping, selectedToppings, handleCheckBoxCheck }: PropType) => {
+  const isCurrentSelected = selectedToppings.some((element) => element.id === topping.id)
   return <Button
-    onClick={() => setSelected(topping.id)}
+    onClick={() => handleCheckBoxCheck(topping)}
     variant={'outline'}
     className={isCurrentSelected ? 'flex flex-col h-42 border-primary' : 'flex flex-col h-42'}
   >
