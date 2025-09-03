@@ -46,7 +46,7 @@ const ProductCard = ({ product }: PropTypes) => {
 
                 <div>
                   <h4 className='mt-6'>Choose the size</h4>
-                  <RadioGroup defaultValue='Hello' className="grid grid-cols-3 gap-4 mt-2">
+                  <RadioGroup defaultValue='small' className="grid grid-cols-3 gap-4 mt-2">
                     <div>
                       <RadioGroupItem
                         value='small'
@@ -94,53 +94,40 @@ const ProductCard = ({ product }: PropTypes) => {
                 </div>
 
                 <div>
-                  <h4 className='mt-6'>Choose the size</h4>
-                  <RadioGroup defaultValue='Hello' className="grid grid-cols-3 gap-4 mt-2">
+                  <h4 className='mt-6'>Choose the crust</h4>
+                  <RadioGroup defaultValue='thin' className="grid grid-cols-3 gap-4 mt-2">
                     <div>
                       <RadioGroupItem
-                        value='small'
-                        id='small'
+                        value='thin'
+                        id='thin'
                         className="peer sr-only "
-                        aria-label='small'
+                        aria-label='Thin'
                       />
                       <Label
-                        htmlFor='small'
+                        htmlFor='thin'
                         className="flex flex-col items-center text-md justify-between rounded-md border-2 bg-white py-1 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                       >
-                        Small
+                        Thin
                       </Label>
                     </div>
                     <div>
                       <RadioGroupItem
-                        value='medium'
-                        id='medium'
+                        value='thick'
+                        id='thick'
                         className="peer sr-only "
-                        aria-label='medium'
+                        aria-label='Thick'
                       />
                       <Label
-                        htmlFor='medium'
+                        htmlFor='thick'
                         className="flex flex-col items-center text-md justify-between rounded-md border-2 bg-white py-1 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                       >
-                        Medium
-                      </Label>
-                    </div>
-                    <div>
-                      <RadioGroupItem
-                        value='large'
-                        id='large'
-                        className="peer sr-only "
-                        aria-label='large'
-                      />
-                      <Label
-                        htmlFor='large'
-                        className="flex flex-col items-center text-md justify-between rounded-md border-2 bg-white py-1 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                      >
-                        Large
+                        Thick
                       </Label>
                     </div>
 
                   </RadioGroup>
                 </div>
+
                 <ToppingList />
               </div>
             </div>
