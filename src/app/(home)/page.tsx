@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
-import ProductCard, { Product } from "./components/product-card";
-import { Category } from "@/lib/types";
+import ProductCard from "./components/product-card";
+import { Category, Product } from "@/lib/types";
 
-const products: Product[] = [
+const products = [
   {
     id: '1',
     name: 'Hot Pizza',
@@ -58,6 +58,8 @@ const products: Product[] = [
 
 export default async function Home() {
 
+  //todo:do concurrent request -> use "Promise.all()"
+
   const categoryResponse = await fetch(`${process.env.BACKEND_URL}/api/catalog/categories`, {
     next: {
       revalidate: 3600, //1 hour
@@ -66,8 +68,20 @@ export default async function Home() {
 
   if (!categoryResponse.ok) throw new Error('Failed to fetch categories')
 
-  const cotegories: Category[] = await categoryResponse.json();
-  console.log(cotegories)
+  const categories: Category[] = await categoryResponse.json();
+  //todo: add pagination
+  const productResponse = await fetch(
+    //add dynamic tenantId
+    `${process.env.BACKEND_URL}/api/catalog/products?perPage=100&tenantId=5`, {
+    next: {
+      revalidate: 3600, //1 hour
+    }
+  })
+  if (!productResponse.ok) throw new Error('Failed to fetch products')
+
+  console.log('productResponse', productResponse)
+  const products: { data: Product[] } = await productResponse.json();
+  console.log('Product', products)
   return (
     <>
       <section className="bg-white">
@@ -90,28 +104,36 @@ export default async function Home() {
 
       <section>
         <div className="container py-12">
-          <Tabs defaultValue="pizza">
+          <Tabs defaultValue={categories[2]._id}>
             <TabsList>
 
               {
-                cotegories.map((category) => { return (<TabsTrigger key={category._id} value={category._id} className="text-md">{category.name}</TabsTrigger>) }
+                categories.map((category) => { return (<TabsTrigger key={category._id} value={category._id} className="text-md">{category.name}</TabsTrigger>) }
                 )
               }
 
               {/* <TabsTrigger value="beverages" className="text-md">Beverages</TabsTrigger> */}
             </TabsList>
-            <TabsContent value="pizza">
-              <div className="grid grid-cols-4 gap-6 mt-6">
-                {
-                  products.map((product) => (<ProductCard product={product} key={product.id} />))
-                }
-              </div>
-            </TabsContent>
+
+            {
+              categories.map((category) => {
+                return (
+                  <TabsContent key={category._id} value={category._id}>
+                    <div className="grid grid-cols-4 gap-6 mt-6">
+                      {
+                        products.data.data.filter((product) => product.category._id === category._id).map((product) => (<ProductCard product={product} key={product._id} />))
+                      }
+                    </div>
+                  </TabsContent>
+                )
+              })
+            }
+            {/*            
             <TabsContent value="beverages"> <div className="grid grid-cols-4 gap-6 mt-6">
               {
                 products.map((product) => (<ProductCard product={product} key={product.id} />))
               }
-            </div></TabsContent>
+            </div></TabsContent> */}
           </Tabs>
         </div>
       </section>
