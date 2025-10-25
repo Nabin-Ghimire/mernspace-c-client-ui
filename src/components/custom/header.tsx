@@ -3,9 +3,24 @@ import Link from 'next/link'
 import React from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Button } from '../ui/button'
+import { TenantData } from '@/lib/types'
 
 
-const Header = () => {
+const Header = async () => {
+  let restaurants: TenantData[] = [];
+  try {
+
+    const tenantsResponse = await fetch(`${process.env.BACKEND_URL}/api/auth/tenants/dropdown`, {
+      next: {
+        revalidate: 3600, //1 hour
+      }
+    });
+    if (!tenantsResponse.ok) throw new Error(`Failed: ${tenantsResponse.status}`);
+    const response = await tenantsResponse.json();
+    restaurants = response.tenants
+  } catch (err) {
+    console.error(err);
+  }
   return (
     <header className='bg-white'>
       <nav className='container flex items-center justify-between py-5 '>
@@ -21,6 +36,16 @@ const Header = () => {
               <SelectValue placeholder="Theme" />
             </SelectTrigger>
             <SelectContent>
+              {
+                restaurants.map((restaurant) => {
+                  return (
+                    <SelectItem key={restaurant.id} value={restaurant.id.toString()}>
+                      {restaurant.name}
+                    </SelectItem>
+                  )
+                })
+              }
+
               <SelectItem value="light">Light</SelectItem>
               <SelectItem value="dark">Dark</SelectItem>
               <SelectItem value="system">System</SelectItem>
@@ -37,7 +62,7 @@ const Header = () => {
           </ul>
           <div className='relative '>
             <Link href={'/cart'} className='hover:text-primary'> <ShoppingCart /> </Link>
-            <span className='absolute -top-4 -right-5 h-6 w-6 flex items-venter justify-center rounded-full bg-orange-600 font-bold text-white'>3</span>
+            <span className='absolute -top-4 -right-5 h-6 w-6 flex items-center justify-center rounded-full bg-orange-600 font-bold text-white'>3</span>
           </div>
           <div className='flex items-center ml-10'>
             <Phone />
