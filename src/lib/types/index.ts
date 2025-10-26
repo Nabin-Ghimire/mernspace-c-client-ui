@@ -35,7 +35,7 @@ export type Product={
   _id:string;
   name:string;
   description:string;
-  categoryId:Category;
+  category:Category;
   priceConfiguration:PriceConfiguration;
   attributes:ProductAttribute[];
   image:string,
