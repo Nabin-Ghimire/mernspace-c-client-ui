@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
@@ -6,10 +7,18 @@ import React from 'react'
 import ToppingList from './topping-list'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
-import { Product } from '@/lib/types'
+import { Product, } from '@/lib/types'
 
 function ProductModal({ product }: { product: Product }) {
+
+
+  const handleAddToCard = () => {
+    console.log('Handling add to card')
+  }
+
+
   return (
+
     <Dialog>
       <DialogTrigger className='bg-orange-200 hover:bg-orange-300 text-orange-500 px-6 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150'>Choose</DialogTrigger>
       <DialogContent className='max-w-3xl p-0'>
@@ -61,7 +70,7 @@ function ProductModal({ product }: { product: Product }) {
 
             <div className='flex items-center justify-between mt-12'>
               <span className='font-bold'>रु. 400 </span>
-              <Button>
+              <Button onClick={handleAddToCard}>
                 <ShoppingCart size={20} />
                 <span className=' ml-2'>Add to Cart</span>
               </Button>
