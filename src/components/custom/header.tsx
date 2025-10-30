@@ -1,9 +1,10 @@
-import { Phone, ShoppingCart } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Button } from '../ui/button'
 import { TenantData } from '@/lib/types'
+import CartCounter from './cart-count'
 
 
 const Header = async () => {
@@ -60,10 +61,7 @@ const Header = async () => {
             <li className='hover:text-primary'><Link href={'/'}>Menu</Link></li>
             <li className='hover:text-primary'><Link href={'/'}>Menu</Link></li>
           </ul>
-          <div className='relative '>
-            <Link href={'/cart'} className='hover:text-primary'> <ShoppingCart /> </Link>
-            <span className='absolute -top-4 -right-5 h-6 w-6 flex items-center justify-center rounded-full bg-orange-600 font-bold text-white'>3</span>
-          </div>
+          <CartCounter />
           <div className='flex items-center ml-10'>
             <Phone />
             <span>97798145343569</span>
