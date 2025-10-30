@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import Image from 'next/image';
-import React, { Suspense } from 'react'
+import React from 'react'
 import { Product } from '@/lib/types';
 import ProductModal from './product-modal';
 
@@ -29,9 +29,8 @@ const ProductCard = ({ product }: PropTypes) => {
           <span>From</span>
           <span className='font-bold'>रु.{100}</span>
         </p>
-        <Suspense fallback={'Loading.....'}>
-          <ProductModal product={product} />
-        </Suspense>
+
+        <ProductModal product={product} />
 
       </CardFooter>
     </Card>
