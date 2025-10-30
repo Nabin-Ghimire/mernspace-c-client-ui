@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import React from 'react'
+import React, { Suspense } from 'react'
 import ToppingList from './topping-list'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
@@ -65,8 +65,9 @@ function ProductModal({ product }: { product: Product }) {
 
 
 
-
-            <ToppingList />
+            <Suspense fallback={"Topping Loading....."}>
+              <ToppingList />
+            </Suspense>
 
             <div className='flex items-center justify-between mt-12'>
               <span className='font-bold'>रु. 400 </span>
