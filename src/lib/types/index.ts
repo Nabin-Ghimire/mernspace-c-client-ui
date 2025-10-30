@@ -44,7 +44,7 @@ export type Product={
 }
 
 export type Topping = {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   image: string;
