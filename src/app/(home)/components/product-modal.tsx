@@ -3,15 +3,31 @@ import Image from 'next/image'
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import React, { Suspense } from 'react'
+import React, { startTransition, Suspense, useState } from 'react'
 import ToppingList from './topping-list'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
 import { Product, } from '@/lib/types'
 
+
+type ChosenConfig = {
+  [key: string]: string
+}
 function ProductModal({ product }: { product: Product }) {
 
+  const [consenConfig, setChosenConfig] = useState<ChosenConfig>();
+  const handleRadioChange = (key: string, data: string) => {
+    startTransition(() => {
+      setChosenConfig((prev) => {
 
+        // {
+        //   Size:'Medium',
+        //   Crust:'Thin'
+        // }
+        return { ...prev, [key]: data }
+      })
+    })
+  }
   const handleAddToCard = () => {
     console.log('Handling add to card')
   }
@@ -36,7 +52,11 @@ function ProductModal({ product }: { product: Product }) {
               return (
                 <div key={key}>
                   <h4 className='mt-6'>Choose the {key}</h4>
-                  <RadioGroup defaultValue={value.availableOptions[0]} className="grid grid-cols-3 gap-4 mt-2">
+                  <RadioGroup
+                    onValueChange={(data) => {
+                      handleRadioChange(key, data)
+                    }}
+                    defaultValue={value.availableOptions[0]} className="grid grid-cols-3 gap-4 mt-2">
                     {value.availableOptions.map((option) => {
                       return (
                         <div key={option}>
