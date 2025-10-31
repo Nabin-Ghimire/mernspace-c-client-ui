@@ -8,6 +8,8 @@ import ToppingList from './topping-list'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
 import { Product, Topping, } from '@/lib/types'
+import { useAppDispatch } from '@/lib/store/hooks'
+import { addToCart } from '@/lib/store/features/cart/cartSlice'
 
 
 type ChosenConfig = {
@@ -15,7 +17,12 @@ type ChosenConfig = {
 }
 function ProductModal({ product }: { product: Product }) {
 
-  const [chosenConfig, setChosenConfig] = useState<ChosenConfig>();
+  const dispatch = useAppDispatch();
+
+  const defaulConfiguration = Object.entries(product.category.priceConfiguration).map(([Key, value]) => {
+    return { [Key]: value.availableOptions[0] }
+  }).reduce((acc, curr) => ({ ...acc, ...curr }), {})
+  const [chosenConfig, setChosenConfig] = useState<ChosenConfig>(defaulConfiguration as unknown as ChosenConfig);
   const [selectedToppings, setSelectedToppings] = React.useState<Topping[]>([])
 
   const handleCheckBoxCheck = (topping: Topping) => {
@@ -29,8 +36,20 @@ function ProductModal({ product }: { product: Product }) {
         setSelectedToppings((prev) => [...prev, topping]);
       }
     })
-
   }
+
+  const handleAddToCart = (product: Product) => {
+    const itemToAdd = {
+      product,
+      chosenConfiguration: {
+        priceConfiguration: chosenConfig!,
+        selectedToppings: selectedToppings
+      }
+
+    }
+    dispatch(addToCart(itemToAdd))
+  }
+
   const handleRadioChange = (key: string, data: string) => {
     startTransition(() => {
       setChosenConfig((prev) => {
@@ -43,10 +62,6 @@ function ProductModal({ product }: { product: Product }) {
       })
     })
   }
-  const handleAddToCard = () => {
-    console.log('Handling add to card')
-  }
-
 
   return (
 
@@ -106,7 +121,7 @@ function ProductModal({ product }: { product: Product }) {
 
             <div className='flex items-center justify-between mt-12'>
               <span className='font-bold'>रु. 400 </span>
-              <Button onClick={handleAddToCard}>
+              <Button onClick={() => handleAddToCart(product)}>
                 <ShoppingCart size={20} />
                 <span className=' ml-2'>Add to Cart</span>
               </Button>
@@ -117,5 +132,6 @@ function ProductModal({ product }: { product: Product }) {
     </Dialog>
   )
 }
+
 
 export default ProductModal
