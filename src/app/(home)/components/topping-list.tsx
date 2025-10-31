@@ -1,5 +1,5 @@
 'use client'
-import React, { startTransition, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ToppingCard from './topping-card'
 import { Topping } from '@/lib/types';
 
@@ -15,7 +15,7 @@ import { Topping } from '@/lib/types';
 //   }
 // ]
 
-const ToppingList = () => {
+const ToppingList = ({ selectedToppings, handleCheckBoxCheck }: { selectedToppings: Topping[], handleCheckBoxCheck: (topping: Topping) => void }) => {
 
 
   const [toppings, setToppings] = useState<Topping[]>([]);
@@ -32,23 +32,9 @@ const ToppingList = () => {
     fetchData();
   }, [])
 
-  const [selectedToppings, setSelectedToppings] = React.useState<Topping[]>([])
 
-  const handleCheckBoxCheck = (topping: Topping) => {
-    const isAlreadyExists = selectedToppings.some((element: Topping) => element._id === topping._id);
 
-    startTransition(() => {
-      if (isAlreadyExists) {
-        setSelectedToppings((prev) => prev.filter((elem: Topping) => elem._id !== topping._id))
-      }
-      else {
-        setSelectedToppings((prev) => [...prev, topping]);
-      }
-    })
-
-  }
-
-  return <section className='mt-6'>
+  return <section className='mt-3'>
     <h3>Extra toppings</h3>
     <div className='grid grid-cols-3 mt-2 gap-4'>
       {

@@ -18,9 +18,9 @@ const ToppingCard = ({ topping, selectedToppings, handleCheckBoxCheck }: PropTyp
   return <Button
     onClick={() => handleCheckBoxCheck(topping)}
     variant={'outline'}
-    className={`flex flex-col h-42 ${isCurrentSelected ? ' relative  border-primary' : ''}`}
+    className={`flex flex-col h-35 ${isCurrentSelected ? ' relative  border-primary' : ''}`}
   >
-    <Image src={topping.image} width={80} height={80} alt={topping.name} />
+    <Image src={topping.image} width={80} height={70} alt={topping.name} />
     <h4>{topping.name}</h4>
     <p>रु. {topping.price}</p>
     {isCurrentSelected && (
