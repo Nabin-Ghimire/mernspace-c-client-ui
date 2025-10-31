@@ -7,7 +7,7 @@ import React, { startTransition, Suspense, useState } from 'react'
 import ToppingList from './topping-list'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
-import { Product, } from '@/lib/types'
+import { Product, Topping, } from '@/lib/types'
 
 
 type ChosenConfig = {
@@ -15,7 +15,22 @@ type ChosenConfig = {
 }
 function ProductModal({ product }: { product: Product }) {
 
-  const [consenConfig, setChosenConfig] = useState<ChosenConfig>();
+  const [chosenConfig, setChosenConfig] = useState<ChosenConfig>();
+  const [selectedToppings, setSelectedToppings] = React.useState<Topping[]>([])
+
+  const handleCheckBoxCheck = (topping: Topping) => {
+    const isAlreadyExists = selectedToppings.some((element: Topping) => element._id === topping._id);
+
+    startTransition(() => {
+      if (isAlreadyExists) {
+        setSelectedToppings((prev) => prev.filter((elem: Topping) => elem._id !== topping._id))
+      }
+      else {
+        setSelectedToppings((prev) => [...prev, topping]);
+      }
+    })
+
+  }
   const handleRadioChange = (key: string, data: string) => {
     startTransition(() => {
       setChosenConfig((prev) => {
@@ -37,9 +52,9 @@ function ProductModal({ product }: { product: Product }) {
 
     <Dialog>
       <DialogTrigger className='bg-orange-200 hover:bg-orange-300 text-orange-500 px-6 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150'>Choose</DialogTrigger>
-      <DialogContent className='max-w-3xl p-0'>
+      <DialogContent className='max-w-3xl p-0 mb-7 '>
 
-        <div className='flex'>
+        <div className='flex '>
           <div className='w-1/3 bg-white rounded p-8 flex items-center justify-center'>
             <Image alt={product.name} src={product.image} width={400} height={400} />
           </div>
@@ -51,7 +66,7 @@ function ProductModal({ product }: { product: Product }) {
             {Object.entries(product.category.priceConfiguration).map(([key, value]) => {
               return (
                 <div key={key}>
-                  <h4 className='mt-6'>Choose the {key}</h4>
+                  <h4 className='mt-3'>Choose the {key}</h4>
                   <RadioGroup
                     onValueChange={(data) => {
                       handleRadioChange(key, data)
@@ -86,7 +101,7 @@ function ProductModal({ product }: { product: Product }) {
 
 
             <Suspense fallback={"Topping Loading....."}>
-              <ToppingList />
+              <ToppingList selectedToppings={selectedToppings} handleCheckBoxCheck={handleCheckBoxCheck} />
             </Suspense>
 
             <div className='flex items-center justify-between mt-12'>
