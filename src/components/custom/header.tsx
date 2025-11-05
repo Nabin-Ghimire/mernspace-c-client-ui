@@ -4,7 +4,7 @@ import React from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Button } from '../ui/button'
 import { TenantData } from '@/lib/types'
-import CartCounter from './cart-count'
+import CartCounterWithoutSSR from './cart-coute-withoutssr'
 
 
 const Header = async () => {
@@ -61,7 +61,7 @@ const Header = async () => {
             <li className='hover:text-primary'><Link href={'/'}>Menu</Link></li>
             <li className='hover:text-primary'><Link href={'/'}>Menu</Link></li>
           </ul>
-          <CartCounter />
+          <CartCounterWithoutSSR />
           <div className='flex items-center ml-10'>
             <Phone />
             <span>97798145343569</span>

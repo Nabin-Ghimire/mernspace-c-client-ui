@@ -37,6 +37,7 @@ function ProductModal({ product }: { product: Product }) {
       }
     })
   }
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleAddToCart = (product: Product) => {
     const itemToAdd = {
@@ -45,9 +46,9 @@ function ProductModal({ product }: { product: Product }) {
         priceConfiguration: chosenConfig!,
         selectedToppings: selectedToppings
       }
-
     }
     dispatch(addToCart(itemToAdd))
+    setOpenDialog(false)
   }
 
   const handleRadioChange = (key: string, data: string) => {
@@ -63,9 +64,10 @@ function ProductModal({ product }: { product: Product }) {
     })
   }
 
+
   return (
 
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger className='bg-orange-200 hover:bg-orange-300 text-orange-500 px-6 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150'>Choose</DialogTrigger>
       <DialogContent className='max-w-3xl p-0 mb-7 '>
 
