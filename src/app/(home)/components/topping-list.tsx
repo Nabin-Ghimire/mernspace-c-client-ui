@@ -27,7 +27,6 @@ const ToppingList = ({ selectedToppings, handleCheckBoxCheck }: { selectedToppin
       const toppingsFetched = await toppingResponse.json();
       const toppings = toppingsFetched.docs
       setToppings(toppings);
-      console.log(toppings)
     };
     fetchData();
   }, [])
