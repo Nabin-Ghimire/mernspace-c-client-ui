@@ -34,7 +34,7 @@ const Header = async () => {
 
           <Select>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
+              <SelectValue placeholder="Restaurants" />
             </SelectTrigger>
             <SelectContent>
               {
@@ -59,7 +59,7 @@ const Header = async () => {
         <div className='flex items-center gap-x-4'>
           <ul className='flex items-center font-medium space-x-4'>
             <li className='hover:text-primary'><Link href={'/'}>Menu</Link></li>
-            <li className='hover:text-primary'><Link href={'/'}>Menu</Link></li>
+            <li className='hover:text-primary'><Link href={'/'}>Orders</Link></li>
           </ul>
           <CartCounterWithoutSSR />
           <div className='flex items-center ml-10'>
