@@ -64,12 +64,12 @@ export default async function Home() {
 
   return (
     <>
-      <section className="bg-white">
+      <section className="bg-white p-2">
         <div className="container flex items-center justify-between">
           <div>
-            <h1 className="text-7xl font-black py-24 font-sans leading-2">
-              Super Delicious Pizza in <br /> <br /><br /><br /> <br /><br /><br /><br /> <br />
-              <span className="text-primary">Only 45 Minutes</span>
+            <h1 className="text-7xl font-black my-15 font-sans leading-2">
+              Super Delicious Pizza in
+              <span className="text-primary mt-20 block">Only 45 Minutes</span>
             </h1>
             <p className="text-2xl mt-8 max-w-lg leading-snug">
               Enjoy a Free Meal if Your Order Takes More Than 45 Minutes!
