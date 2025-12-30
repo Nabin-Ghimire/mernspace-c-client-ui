@@ -25,6 +25,16 @@ function ProductModal({ product }: { product: Product }) {
   const [chosenConfig, setChosenConfig] = useState<ChosenConfig>(defaulConfiguration as unknown as ChosenConfig);
   const [selectedToppings, setSelectedToppings] = React.useState<Topping[]>([])
 
+
+  const totalPrice = React.useMemo(() => {
+    const toppingsTotal = selectedToppings.reduce((acc, curr) => acc + curr.price, 0);
+    const configTotal = Object.entries(chosenConfig).reduce((acc, [key, value]: [string, string]) => {
+      const price = product.priceConfiguration[key].availableOptions[value]
+      return acc + price
+    }, 0)
+    return configTotal
+  }, [chosenConfig, selectedToppings, product])
+
   const handleCheckBoxCheck = (topping: Topping) => {
     const isAlreadyExists = selectedToppings.some((element: Topping) => element._id === topping._id);
 
@@ -122,7 +132,7 @@ function ProductModal({ product }: { product: Product }) {
             </Suspense>
 
             <div className='flex items-center justify-between mt-12'>
-              <span className='font-bold'>रु. 400 </span>
+              <span className='font-bold'>रु. {totalPrice} </span>
               <Button onClick={() => handleAddToCart(product)}>
                 <ShoppingCart size={20} />
                 <span className=' ml-2'>Add to Cart</span>
