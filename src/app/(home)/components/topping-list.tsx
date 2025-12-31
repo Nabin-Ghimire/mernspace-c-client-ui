@@ -22,7 +22,7 @@ const ToppingList = ({ selectedToppings, handleCheckBoxCheck }: { selectedToppin
 
   useEffect(() => {
     const fetchData = async () => {
-      const toppingResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/catalog/toppings?5`);
+      const toppingResponse = await fetch(`${process.env.BACKEND_URL}/api/catalog/toppings`);
 
       const toppingsFetched = await toppingResponse.json();
       const toppings = toppingsFetched.docs

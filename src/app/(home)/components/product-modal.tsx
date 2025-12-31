@@ -86,7 +86,7 @@ function ProductModal({ product }: { product: Product }) {
             <Image alt={product.name} src={product.image} width={400} height={400} />
           </div>
 
-          <div className='w--2/3 p-8'>
+          <div className='w-2/3 p-8'>
             <DialogTitle className="text-xl font-bold">{product.name}</DialogTitle>
             <DialogDescription>{product.description}</DialogDescription>
 
@@ -132,11 +132,13 @@ function ProductModal({ product }: { product: Product }) {
             </Suspense>
 
             <div className='flex items-center justify-between mt-12'>
-              <span className='font-bold'>रु. {totalPrice} </span>
-              <Button onClick={() => handleAddToCart(product)}>
-                <ShoppingCart size={20} />
-                <span className=' ml-2'>Add to Cart</span>
-              </Button>
+              <p className='font-bold '>रु. {totalPrice} </p>
+              <div>
+                <Button onClick={() => handleAddToCart(product)}>
+                  <ShoppingCart size={20} />
+                  <span >Add to Cart</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

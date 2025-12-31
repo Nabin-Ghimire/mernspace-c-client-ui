@@ -26,6 +26,7 @@ const ProductList = async () => {
   if (!productResponse.ok) throw new Error('Failed to fetch products')
 
   const products: { data: Product[] } = await productResponse.json();
+  console.log("products", products);
 
   return (
 
