@@ -125,11 +125,12 @@ function ProductModal({ product }: { product: Product }) {
             })}
 
 
+            {product.category.hasTopping &&
+              (<Suspense fallback={"Topping Loading....."}>
+                <ToppingList selectedToppings={selectedToppings} handleCheckBoxCheck={handleCheckBoxCheck} />
+              </Suspense>)}
 
 
-            <Suspense fallback={"Topping Loading....."}>
-              <ToppingList selectedToppings={selectedToppings} handleCheckBoxCheck={handleCheckBoxCheck} />
-            </Suspense>
 
             <div className='flex items-center justify-between mt-12'>
               <p className='font-bold '>रु. {totalPrice} </p>

@@ -21,6 +21,7 @@ export interface Attribute {
 export interface Category {
   _id: string;
   name: string;
+  hasTopping: boolean;
   priceConfiguration: PriceConfiguration;
   attributes: Attribute[];
 }
