@@ -32,7 +32,7 @@ function ProductModal({ product }: { product: Product }) {
       const price = product.priceConfiguration[key].availableOptions[value]
       return acc + price
     }, 0)
-    return configTotal
+    return configTotal + toppingsTotal;
   }, [chosenConfig, selectedToppings, product])
 
   const handleCheckBoxCheck = (topping: Topping) => {
